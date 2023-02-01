@@ -1,13 +1,17 @@
 const User = require("../models/UserModel");
 const Stock = require("../models/StockModel");
 const Product = require("../models/ProductModel");
-const { isValidUser } = require('../functions/UserUtils');
+const { isValidUser, isValidStock } = require('../functions/Utils');
 
 exports.storeStock = async (request, response) => {
     const { product_id, quantity, batchId } = request.body;
     const { id } = request.user;
-    if(isValidUser(id) === false){
+    if(await isValidUser(id) === false){
         return response.status(404).json({ message: 'User profile not found!' });
+    }
+
+    if(await isValidStock(batchId) === true){
+        return response.status(400).json({ message: 'Batch ID already exists!' });
     }
 
     const data = {
@@ -16,7 +20,7 @@ exports.storeStock = async (request, response) => {
         batchId: batchId,
         created_by: id
     }
-    
+
     const newStock = await Stock.create(data);
     if (!newStock) {
         return response.status(400).json({ error: 'Unable to create this stock!' });

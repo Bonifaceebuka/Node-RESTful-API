@@ -2,7 +2,7 @@ const User = require("../models/UserModel");
 const { jwtConfig: config } = require("../config");
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
-const { isValidUser } = require("../functions/UserUtils");
+const { isValidUser } = require("../functions/Utils");
 
 exports.signUp = async (request, response) => {
   const { email, password } = request.body;

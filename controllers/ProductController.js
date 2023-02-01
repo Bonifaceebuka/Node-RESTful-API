@@ -1,11 +1,11 @@
 const User = require("../models/UserModel");
 const Product = require("../models/ProductModel");
-const { isValidUser } = require('../functions/UserUtils');
+const { isValidUser } = require('../functions/Utils');
 
 exports.storeProduct = async (request, response) => {
     const { product_name, product_description } = request.body;
     const { id } = request.user;
-    if(isValidUser(id) === false){
+    if(await isValidUser(id) === false){
         return response.status(404).json({ message: 'User profile not found!' });
     }
 
