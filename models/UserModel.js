@@ -10,22 +10,16 @@ const User = db_connect.define('user', {
     },
     email: {
         type: DataTypes.STRING,
-        unique: false,
-        allowNull: true
-    },
-    username: {
-        type: DataTypes.STRING,
+        unique: true,
         allowNull: true
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     }
 }, {
     // Other model options go 
-    timestamps: true,
-    updatedAt: 'updated_at',
-    createdAt: 'created_at'
+    timestamps: true
 });
 
 module.exports = User;

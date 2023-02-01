@@ -1,23 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const {
-  addressDetails,
-  wallectConnection,
-  isAddressValid,
-  // isAuthenticated
+  signUp,
+  signIn
 } = require('../../controllers/AuthController');
 
-const auth = require("../../middlewares/ApiAuthMiddleware");
-// const {
-//   walletConnectValidationRules,
-//   walletConnectValidationErrors
-// } = require('../../validators/AddressValidator');
-
-// /* GET details of an address. */
-// router.get('/address_details/:address', addressDetails); 
-// router.post('/connected_address',walletConnectValidationRules, walletConnectValidationErrors, wallectConnection);
-// // router.post('/verify_signature', verifySignature);
-// router.get('/is_address_valid/:address', isAddressValid);
-// router.get('/loggedIn',auth, isAuthenticated);
+const {
+  signUpValidationRules,
+  signUpValidationErrors
+} = require('../../validators/SignUpValidator');
+ 
+router.post('/signup',signUpValidationRules, signUpValidationErrors, signUp);
+router.post('/signin',signUpValidationRules, signUpValidationErrors, signIn);
 
 module.exports = router;

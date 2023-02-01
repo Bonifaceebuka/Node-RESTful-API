@@ -1,7 +1,8 @@
 'use strict';
 const { Sequelize, DataTypes } = require('sequelize');
 const db_connect = require('../config/database');
-const Address = db_connect.define('product', {
+const User = require("./UserModel");
+const Product = db_connect.define('product', {
   // Model attributes are defined here
   id:{
     type: DataTypes.INTEGER,
@@ -14,13 +15,16 @@ created_by:{
 },
 product_name:{
     type: DataTypes.STRING,
-    unique:true
+    allowNull:false
 },
-created_at: DataTypes.DATE,
-updated_at: DataTypes.DATE,
+product_description:{
+    type: DataTypes.TEXT,
+    allowNull:false
+}
 }, {
   // Other model options go 
   timestamps: true
 });
 
-module.exports = Address;
+Product.belongsTo(User, { foreignKey: { name: 'created_by' } });
+module.exports = Product;
